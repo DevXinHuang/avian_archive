@@ -1,0 +1,359 @@
+.journal-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.6;
+}
+
+/* Header */
+.journal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e1e8ed;
+}
+
+.journal-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.journal-header p {
+  margin: 0 0 1rem 0;
+  color: #5f6368;
+  font-size: 1.1rem;
+}
+
+.database-info {
+  margin-top: 1rem;
+}
+
+.database-info small {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Controls */
+.journal-controls {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.expand-controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.expand-btn,
+.refresh-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.expand-btn:hover,
+.refresh-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #6f42c1;
+  transform: translateY(-1px);
+}
+
+.refresh-btn {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.refresh-btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Loading and Error States */
+.loading-state,
+.error-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.loading-spinner {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.retry-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.retry-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  margin: 0 0 1rem 0;
+  color: #495057;
+}
+
+.import-link-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.import-link-btn:hover {
+  background-color: #218838;
+}
+
+/* Journal Entries */
+.journal-entries {
+  margin-top: 1rem;
+}
+
+/* Day Group */
+.day-group {
+  margin-bottom: 1.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.day-header:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.day-header-content {
+  flex: 1;
+}
+
+.day-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.day-summary {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.day-toggle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 1rem;
+  transition: transform 0.2s ease;
+}
+
+/* Day Sightings */
+.day-sightings {
+  padding: 0;
+  background-color: #fafbfc;
+}
+
+/* Individual Sighting */
+.journal-sighting {
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e1e8ed;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+.journal-sighting:last-child {
+  border-bottom: none;
+}
+
+.journal-sighting:hover {
+  background-color: #f8f9fa;
+}
+
+/* Photo Thumbnail */
+.journal-photo {
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.journal-photo-placeholder {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #dee2e6;
+}
+
+.journal-photo-icon {
+  font-size: 1.5rem;
+  color: #6c757d;
+}
+
+/* Sighting Details */
+.journal-details {
+  flex: 1;
+  min-width: 0; /* Allows text to truncate if needed */
+}
+
+.journal-primary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.journal-time {
+  font-size: 0.95rem;
+  color: #6c757d;
+  font-weight: 500;
+  background-color: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  min-width: 60px;
+  text-align: center;
+}
+
+.journal-species {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  flex: 1;
+}
+
+.journal-location {
+  font-size: 0.9rem;
+  color: #5f6368;
+  margin-bottom: 0.5rem;
+  font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.journal-notes {
+  font-size: 0.95rem;
+  color: #495057;
+  line-height: 1.5;
+  font-style: italic;
+  background-color: #f8f9fa;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border-left: 3px solid #6f42c1;
+  margin-top: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .journal-container {
+    padding: 1rem;
+  }
+
+  .journal-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .expand-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .expand-btn,
+  .refresh-btn {
+    margin-bottom: 0.5rem;
+  }
+
+  .day-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .day-title {
+    font-size: 1.2rem;
+  }
+
+  .journal-sighting {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .journal-photo {
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+    align-self: center;
+  }
+
+  .journal-primary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .journal-time {
+    align-self: flex-start;
+  }
+}
+
+/* Animation for expanding/collapsing */
+.day-sightings {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+} 

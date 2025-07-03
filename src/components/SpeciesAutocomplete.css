@@ -1,0 +1,144 @@
+.species-autocomplete {
+  position: relative;
+  width: 100%;
+}
+
+.species-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.species-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.species-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.species-input::placeholder {
+  color: #a0aec0;
+}
+
+.clear-species-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #a0aec0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.clear-species-btn:hover {
+  background-color: #edf2f7;
+  color: #4a5568;
+}
+
+.species-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.species-suggestion {
+  padding: 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f7fafc;
+  transition: background-color 0.15s ease;
+}
+
+.species-suggestion:last-child {
+  border-bottom: none;
+}
+
+.species-suggestion:hover,
+.species-suggestion.selected {
+  background-color: #edf2f7;
+}
+
+.species-names {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.common-name {
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 0.9rem;
+}
+
+.scientific-name {
+  font-style: italic;
+  color: #718096;
+  font-size: 0.8rem;
+}
+
+.species-family {
+  font-size: 0.75rem;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* Custom scrollbar for suggestions */
+.species-suggestions::-webkit-scrollbar {
+  width: 4px;
+}
+
+.species-suggestions::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.species-suggestions::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.species-suggestions::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .species-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .species-suggestions {
+    max-height: 150px;
+  }
+  
+  .species-suggestion {
+    padding: 0.6rem;
+  }
+}

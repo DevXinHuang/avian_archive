@@ -1,0 +1,388 @@
+.gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.gallery-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.gallery-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.gallery-header p {
+  color: #718096;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+/* Database Info */
+.database-info {
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+  display: inline-block;
+}
+
+.database-info small {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* Loading and Error States */
+.loading-state, .error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.loading-spinner {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  animation: pulse 1s infinite;
+}
+
+.error-state h2 {
+  color: #e53e3e;
+  margin-bottom: 1rem;
+}
+
+.retry-btn {
+  background-color: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.retry-btn:hover {
+  background-color: #5a6fd8;
+  transform: translateY(-1px);
+}
+
+/* Filters Section */
+.filters-section {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.filter-input {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.date-input {
+  flex: 1;
+}
+
+.date-separator {
+  color: #718096;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.filter-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.clear-filters-btn, .refresh-btn {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.clear-filters-btn {
+  background-color: #fed7d7;
+  color: #c53030;
+  border: 1px solid #feb2b2;
+}
+
+.clear-filters-btn:hover {
+  background-color: #feb2b2;
+}
+
+.refresh-btn {
+  background-color: #667eea;
+  color: white;
+}
+
+.refresh-btn:hover {
+  background-color: #5a6fd8;
+}
+
+/* Filter Summary */
+.filter-summary {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.active-filters {
+  margin-left: 1rem;
+}
+
+.filter-tag {
+  display: inline-block;
+  background-color: #edf2f7;
+  color: #2d3748;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0.25rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #718096;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.import-link-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.import-link-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Sightings Grid */
+.sightings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.sighting-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.sighting-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Photo Display */
+.sighting-photo {
+  height: 200px;
+  background-color: #f7fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.photo-placeholder {
+  text-align: center;
+  color: #718096;
+}
+
+.photo-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.photo-filename {
+  font-size: 0.8rem;
+  word-break: break-all;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+/* Sighting Info */
+.sighting-info {
+  padding: 1.5rem;
+}
+
+.sighting-species h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.sighting-datetime, .sighting-location, .sighting-notes {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.sighting-datetime span:not(.datetime-icon),
+.sighting-location span:not(.location-icon) {
+  color: #4a5568;
+}
+
+.sighting-notes p {
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sighting-metadata {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #edf2f7;
+}
+
+.sighting-metadata small {
+  color: #a0aec0;
+  font-size: 0.8rem;
+}
+
+/* Icons */
+.datetime-icon, .location-icon, .notes-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filters-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .filter-actions {
+    grid-column: span 2;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-container {
+    padding: 15px;
+  }
+  
+  .filters-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .filter-actions {
+    grid-column: span 1;
+  }
+  
+  .date-range {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .date-separator {
+    text-align: center;
+    margin: 0.25rem 0;
+  }
+  
+  .sightings-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .sighting-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .filters-section {
+    padding: 1rem;
+  }
+  
+  .filter-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Animation */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+} 

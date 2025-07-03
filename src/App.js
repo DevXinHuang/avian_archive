@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import PhotoImport from './components/PhotoImport';
 import Gallery from './components/Gallery';
 import Journal from './components/Journal';
+import DatabaseTest from './components/DatabaseTest';
 import './App.css';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<PhotoImport />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/journal" element={<Journal />} />
+            <Route path="/test-db" element={<DatabaseTest />} />
           </Routes>
         </main>
       </div>

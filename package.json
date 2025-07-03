@@ -15,22 +15,24 @@
     "build-electron": "npm run build && electron-builder"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.1.1",
-    "react-scripts": "5.0.1",
+    "better-sqlite3": "^12.2.0",
+    "date-fns": "^4.1.0",
     "electron": "^33.4.1",
     "lowdb": "^7.0.1",
-    "date-fns": "^4.1.0",
+    "react": "^19.1.0",
     "react-datepicker": "^7.5.0",
-    "react-dropzone": "^14.3.5"
+    "react-dom": "^19.1.0",
+    "react-dropzone": "^14.3.5",
+    "react-router-dom": "^7.1.1",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "concurrently": "^9.1.0",
-    "wait-on": "^8.0.1",
-    "electron-builder": "^25.1.8",
     "@types/react": "^19.0.5",
-    "@types/react-dom": "^19.0.2"
+    "@types/react-dom": "^19.0.2",
+    "concurrently": "^9.1.0",
+    "electron-builder": "^25.1.8",
+    "electron-rebuild": "^3.2.9",
+    "wait-on": "^8.0.1"
   },
   "browserslist": {
     "production": [
@@ -55,4 +57,4 @@
       "src/electron/**/*"
     ]
   }
-} 
+}
