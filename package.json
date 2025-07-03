@@ -1,0 +1,58 @@
+{
+  "name": "birding-app",
+  "version": "1.0.0",
+  "description": "Local-first birding app for organizing bird photos and sightings",
+  "main": "src/electron/main.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-dev": "ELECTRON_IS_DEV=true electron .",
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron-dev\"",
+    "build-electron": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.1.1",
+    "react-scripts": "5.0.1",
+    "electron": "^33.4.1",
+    "lowdb": "^7.0.1",
+    "date-fns": "^4.1.0",
+    "react-datepicker": "^7.5.0",
+    "react-dropzone": "^14.3.5"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "wait-on": "^8.0.1",
+    "electron-builder": "^25.1.8",
+    "@types/react": "^19.0.5",
+    "@types/react-dom": "^19.0.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "com.birdingapp.app",
+    "productName": "Birding App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "src/electron/**/*"
+    ]
+  }
+} 

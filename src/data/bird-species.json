@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "common_name": "American Robin",
+    "scientific_name": "Turdus migratorius",
+    "family": "Turdidae",
+    "habitat": "Urban areas, parks, lawns, fields"
+  },
+  {
+    "id": 2,
+    "common_name": "Northern Cardinal",
+    "scientific_name": "Cardinalis cardinalis",
+    "family": "Cardinalidae",
+    "habitat": "Woodlands, gardens, shrublands"
+  },
+  {
+    "id": 3,
+    "common_name": "Blue Jay",
+    "scientific_name": "Cyanocitta cristata",
+    "family": "Corvidae",
+    "habitat": "Oak forests, parks, suburbs"
+  },
+  {
+    "id": 4,
+    "common_name": "House Sparrow",
+    "scientific_name": "Passer domesticus",
+    "family": "Passeridae",
+    "habitat": "Urban areas, farms, parks"
+  },
+  {
+    "id": 5,
+    "common_name": "Red-tailed Hawk",
+    "scientific_name": "Buteo jamaicensis",
+    "family": "Accipitridae",
+    "habitat": "Open country, woodlands, prairie"
+  },
+  {
+    "id": 6,
+    "common_name": "Mallard",
+    "scientific_name": "Anas platyrhynchos",
+    "family": "Anatidae",
+    "habitat": "Wetlands, ponds, lakes"
+  },
+  {
+    "id": 7,
+    "common_name": "Bald Eagle",
+    "scientific_name": "Haliaeetus leucocephalus",
+    "family": "Accipitridae",
+    "habitat": "Near water bodies, coasts"
+  },
+  {
+    "id": 8,
+    "common_name": "Ruby-throated Hummingbird",
+    "scientific_name": "Archilochus colubris",
+    "family": "Trochilidae",
+    "habitat": "Gardens, woodlands, meadows"
+  },
+  {
+    "id": 9,
+    "common_name": "Mourning Dove",
+    "scientific_name": "Zenaida macroura",
+    "family": "Columbidae",
+    "habitat": "Open areas, suburbs, farms"
+  },
+  {
+    "id": 10,
+    "common_name": "Black-capped Chickadee",
+    "scientific_name": "Poecile atricapillus",
+    "family": "Paridae",
+    "habitat": "Deciduous and mixed forests"
+  },
+  {
+    "id": 11,
+    "common_name": "Wood Duck",
+    "scientific_name": "Aix sponsa",
+    "family": "Anatidae",
+    "habitat": "Wooded swamps, ponds"
+  },
+  {
+    "id": 12,
+    "common_name": "Great Blue Heron",
+    "scientific_name": "Ardea herodias",
+    "family": "Ardeidae",
+    "habitat": "Wetlands, shorelines"
+  },
+  {
+    "id": 13,
+    "common_name": "American Goldfinch",
+    "scientific_name": "Spinus tristis",
+    "family": "Fringillidae",
+    "habitat": "Fields, meadows, suburbs"
+  },
+  {
+    "id": 14,
+    "common_name": "Pileated Woodpecker",
+    "scientific_name": "Dryocopus pileatus",
+    "family": "Picidae",
+    "habitat": "Mature forests"
+  },
+  {
+    "id": 15,
+    "common_name": "Turkey Vulture",
+    "scientific_name": "Cathartes aura",
+    "family": "Cathartidae",
+    "habitat": "Open areas, roadsides"
+  },
+  {
+    "id": 16,
+    "common_name": "Eastern Bluebird",
+    "scientific_name": "Sialia sialis",
+    "family": "Turdidae",
+    "habitat": "Open woodlands, farmland"
+  },
+  {
+    "id": 17,
+    "common_name": "White-breasted Nuthatch",
+    "scientific_name": "Sitta carolinensis",
+    "family": "Sittidae",
+    "habitat": "Deciduous forests, parks"
+  },
+  {
+    "id": 18,
+    "common_name": "Canada Goose",
+    "scientific_name": "Branta canadensis",
+    "family": "Anatidae",
+    "habitat": "Lakes, ponds, parks"
+  },
+  {
+    "id": 19,
+    "common_name": "Red-winged Blackbird",
+    "scientific_name": "Agelaius phoeniceus",
+    "family": "Icteridae",
+    "habitat": "Marshes, wetlands"
+  },
+  {
+    "id": 20,
+    "common_name": "Barn Owl",
+    "scientific_name": "Tyto alba",
+    "family": "Tytonidae",
+    "habitat": "Open habitats, farmland"
+  }
+] 
