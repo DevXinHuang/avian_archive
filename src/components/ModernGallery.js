@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainContent from './Layout/MainContent';
 import { useLanguage } from '../context/LanguageContext';
 import { ensureTestData } from '../utils/testData';
@@ -11,6 +12,7 @@ import './ModernGallery.css';
 
 const ModernGallery = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   /** @type {[PhotoSighting[], React.Dispatch<React.SetStateAction<PhotoSighting[]>>]} */
   const [sightings, setSightings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -200,6 +202,13 @@ const ModernGallery = () => {
     return `${parseFloat(latitude).toFixed(2)}, ${parseFloat(longitude).toFixed(2)}`;
   };
 
+  // Navigate to species detail view
+  const navigateToSpecies = (speciesName) => {
+    if (speciesName) {
+      navigate(`/gallery/species/${encodeURIComponent(speciesName)}`);
+    }
+  };
+
   // Header actions
   const headerActions = (
     <div className="flex gap-4 items-center">
@@ -339,7 +348,13 @@ const ModernGallery = () => {
 
               {/* Photo Info */}
               <div className="photo-info">
-                <h3 className="photo-species">{sighting.species || t('gallery.unknownSpecies')}</h3>
+                <h3 
+                  className="photo-species clickable-species" 
+                  onClick={() => navigateToSpecies(sighting.species)}
+                  title={t('gallery.clickToViewSpecies') || 'Click to view all photos of this species'}
+                >
+                  {sighting.species || t('gallery.unknownSpecies')}
+                </h3>
                 
                 <div className="photo-meta">
                   <div className="meta-item">

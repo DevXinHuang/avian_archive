@@ -255,6 +255,21 @@
   transition: color 0.3s ease;
 }
 
+.clickable-species {
+  cursor: pointer;
+  color: var(--primary-color);
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.clickable-species:hover {
+  color: var(--accent-blue);
+  border-bottom-color: var(--accent-blue);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
 .photo-meta {
   display: flex;
   flex-direction: column;

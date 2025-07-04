@@ -9,6 +9,7 @@ import Journal from './components/Journal';
 import Map from './components/Map';
 import Settings from './components/Settings';
 import DatabaseTest from './components/DatabaseTest';
+import SpeciesDetailView from './components/SpeciesDetailView';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Routes>
               {/* Redirect root to gallery as default */}
               <Route path="/" element={<Navigate to="/gallery" replace />} />
+              <Route path="/gallery/species/:species" element={<SpeciesDetailView />} />
               <Route path="/gallery" element={<ModernGallery />} />
               <Route path="/journal" element={<Journal />} />
               <Route path="/map" element={<Map />} />
