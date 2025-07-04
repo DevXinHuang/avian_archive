@@ -111,14 +111,128 @@ avian-archive/
    npm run build-electron
    ```
 
+## Building & Packaging
+
+### 📦 Creating Distributable Apps
+
+The app uses **electron-builder** to create installers and portable apps for different platforms.
+
+#### 🍎 **macOS Builds**
+```bash
+# Build for macOS (creates .zip files for both Intel and Apple Silicon)
+npm run build-mac
+```
+
+**Output files:**
+- `dist/AvianArchive-1.0.0-mac.zip` - Intel Mac version
+- `dist/AvianArchive-1.0.0-arm64-mac.zip` - Apple Silicon version
+- `dist/mac/AvianArchive.app` - Intel app bundle
+- `dist/mac-arm64/AvianArchive.app` - Apple Silicon app bundle
+
+#### 🪟 **Windows Builds**
+```bash
+# Build for Windows (creates .exe installer and portable version)
+npm run build-win
+```
+
+**Output files:**
+- `dist/AvianArchive Setup 1.0.0.exe` - Windows installer
+- `dist/AvianArchive 1.0.0.exe` - Portable Windows executable
+
+#### 🐧 **Linux Builds**
+```bash
+# Build for Linux (creates AppImage and .deb package)
+npm run build-linux
+```
+
+**Output files:**
+- `dist/AvianArchive-1.0.0.AppImage` - Universal Linux AppImage
+- `dist/avian-archive_1.0.0_amd64.deb` - Debian/Ubuntu package
+
+#### 🌍 **All Platforms**
+```bash
+# Build for all platforms at once
+npm run build-all
+```
+
+### 🛠️ **Build Configuration**
+
+The app is configured in `package.json` under the `"build"` section:
+
+- **App ID**: `com.avianarchive.app`
+- **Product Name**: `AvianArchive` (executable name)
+- **Architectures**: Intel x64 + Apple Silicon ARM64 for Mac
+- **Auto-updater**: Ready for future implementation
+- **Code Signing**: Optional (currently unsigned for easy distribution)
+
+### 📋 **Build Requirements**
+
+#### For macOS builds:
+- macOS machine (for .dmg creation)
+- Xcode Command Line Tools (optional, for code signing)
+
+#### For Windows builds:
+- Any platform (cross-compilation supported)
+- Wine (on macOS/Linux) for advanced Windows features
+
+#### For Linux builds:
+- Any platform (cross-compilation supported)
+
+### 🚀 **Distribution**
+
+#### **Quick Distribution (Recommended)**
+1. Run `npm run build-mac` or `npm run build-win`
+2. Share the generated .zip or .exe files
+3. Users can extract and run immediately
+
+#### **App Store Distribution**
+- macOS: Additional code signing required for Mac App Store
+- Windows: Microsoft Store certification needed
+- Linux: Snap Store or Flatpak packaging available
+
+### 🔧 **Advanced Build Options**
+
+#### Custom Icon
+Place your app icon files in `build-resources/`:
+- `icon.icns` - macOS icon
+- `icon.ico` - Windows icon  
+- `icon.png` - Linux icon (512x512 recommended)
+
+#### Code Signing
+For production distribution, add code signing certificates:
+```bash
+# macOS
+export CSC_LINK=path/to/certificate.p12
+export CSC_KEY_PASSWORD=certificate_password
+
+# Windows
+export CSC_LINK=path/to/certificate.p12
+export CSC_KEY_PASSWORD=certificate_password
+```
+
+#### Environment Variables
+- `ELECTRON_IS_DEV=true` - Development mode
+- `DEBUG=electron-builder` - Verbose build output
+
 ### Available Scripts
 
+#### Development Scripts
 - `npm start` - Start React development server (browser mode)
 - `npm run electron` - Start Electron app (production build)
 - `npm run electron-dev` - Start Electron app (development mode)
 - `npm run dev` - Start both React and Electron in development mode
 - `npm run build` - Build React app for production
+
+#### Packaging Scripts
 - `npm run build-electron` - Build complete Electron app
+- `npm run build-mac` - Package for macOS (Intel + Apple Silicon)
+- `npm run build-win` - Package for Windows (64-bit)
+- `npm run build-linux` - Package for Linux (AppImage + deb)
+- `npm run build-all` - Package for all platforms
+- `npm run release` - Create production release packages
+
+#### Utility Scripts
+- `npm run electron-rebuild` - Rebuild native dependencies for current platform
 
 ## Usage Guide
 
@@ -162,6 +276,7 @@ avian-archive/
 - **Leaflet** - Interactive mapping with OpenStreetMap
 - **SQLite3** - Local database for robust data storage
 - **React Dropzone** - Drag-and-drop file handling
+- **electron-builder** - App packaging and distribution
 
 ### Key Technical Features
 - **Local-first Architecture** - All data stays on your device
@@ -202,14 +317,22 @@ CREATE TABLE sightings (
 - [x] Interactive map with Leaflet and custom markers
 - [x] Multi-language support (7 languages)
 
-### Phase 3: Advanced Features 🚧
+### Phase 3: Distribution & Packaging ✅
+- [x] Cross-platform app packaging with electron-builder
+- [x] macOS builds (Intel + Apple Silicon) with .zip distribution
+- [x] Windows builds with .exe installer and portable versions
+- [x] Linux builds with AppImage and .deb packages
+- [x] Automated build scripts for all platforms
+- [x] Production-ready distribution setup
+
+### Phase 4: Advanced Features 🚧
 - [ ] AI-powered bird species identification
 - [ ] Advanced analytics and birding statistics
 - [ ] Data export/import functionality
 - [ ] Photo editing and enhancement tools
 - [ ] Offline map tiles and GPS tracking
 
-### Phase 4: Cloud & Sharing
+### Phase 5: Cloud & Sharing
 - [ ] Optional cloud backup and synchronization
 - [ ] Social features for sharing sightings
 - [ ] eBird integration for community data
