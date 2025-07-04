@@ -148,6 +148,57 @@
   margin-top: 1rem;
 }
 
+/* Search Container */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0 8px;
+  min-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.search-icon {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 0;
+  color: var(--text-color);
+  font-size: 14px;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  padding: 0 8px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.search-clear:hover {
+  color: var(--text-color);
+}
+
 /* Day Group */
 .day-group {
   margin-bottom: 1.5rem;
@@ -271,6 +322,21 @@
   font-weight: 600;
   color: #2c3e50;
   flex: 1;
+}
+
+.clickable-species {
+  cursor: pointer;
+  color: var(--primary-color);
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.clickable-species:hover {
+  color: var(--accent-blue);
+  border-bottom-color: var(--accent-blue);
+  text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .journal-location {

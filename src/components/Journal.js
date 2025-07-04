@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MainContent from './Layout/MainContent';
 import BirdingHeatmap from './BirdingHeatmap';
 import { useLanguage } from '../context/LanguageContext';
-import { ensureTestData } from '../utils/testData';
+import { useSearch } from '../context/SearchContext';
 import './Journal.css';
 
 /**
@@ -12,134 +13,32 @@ import './Journal.css';
 
 const Journal = () => {
   const { t } = useLanguage();
-  /** @type {[PhotoSighting[], React.Dispatch<React.SetStateAction<PhotoSighting[]>>]} */
-  const [sightings, setSightings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isElectron, setIsElectron] = useState(false);
-  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { 
+    searchTerm,
+    setSearchTerm,
+    searchResults: sightings,
+    isLoading,
+    error,
+    clearSearch
+  } = useSearch();
   const [expandedDays, setExpandedDays] = useState(new Set());
 
-  // Check if we're in Electron or browser (same logic as Gallery)
-  useEffect(() => {
-    const checkElectron = () => {
-      const hasElectronAPI = !!window.electronAPI;
-      console.log('Journal: Checking Electron API...', hasElectronAPI);
-      setIsElectron(hasElectronAPI);
-      
-      if (hasElectronAPI && window.electronAPI.database) {
-        console.log('Journal: Electron API and database available');
-      } else if (hasElectronAPI) {
-        console.log('Journal: Electron API available but database missing');
-      } else {
-        console.log('Journal: Using browser mode (localStorage)');
-      }
-      
-      return hasElectronAPI;
-    };
-    
-    // Initial check
-    const initialCheck = checkElectron();
-    
-    // If not found initially, keep checking for up to 3 seconds
-    if (!initialCheck) {
-      let attempts = 0;
-      const maxAttempts = 6;
-      const interval = setInterval(() => {
-        attempts++;
-        const found = checkElectron();
-        
-        if (found || attempts >= maxAttempts) {
-          clearInterval(interval);
-          if (!found) {
-            console.log('Journal: Electron API not found after 3 seconds, using browser mode');
-          }
-        }
-      }, 500);
-      
-      return () => clearInterval(interval);
-    }
-  }, []);
-
-  // Mock database for browser testing
-  const mockDatabase = {
-    /**
-     * Get all sightings from localStorage
-     * @returns {Promise<DatabaseResponse>} Database response with sightings array
-     */
-    getAllSightings: () => {
-      console.log('Journal: Using mock database (localStorage)');
-      /** @type {PhotoSighting[]} */
-      const mockSightings = JSON.parse(localStorage.getItem('mockSightings') || '[]');
-      console.log('Journal: Mock sightings loaded:', mockSightings.length);
-      return Promise.resolve({ success: true, data: mockSightings.reverse() });
+  // Navigate to species detail view
+  const navigateToSpecies = (speciesName) => {
+    if (speciesName) {
+      navigate(`/gallery/species/${encodeURIComponent(speciesName)}`);
     }
   };
 
-  const getDB = () => {
-    if (isElectron && window.electronAPI && window.electronAPI.database) {
-      console.log('Journal: Using Electron SQLite database');
-      return window.electronAPI.database;
-    }
-    console.log('Journal: Using mock database');
-    return mockDatabase;
+  // Reset filters
+  const resetFilters = () => {
+    clearSearch();
+    setExpandedDays(new Set());
   };
-
-  // Load all sightings from database (same logic as Gallery)
-  const loadSightings = async () => {
-    console.log('Journal: Loading sightings...');
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Wait a moment to ensure Electron API is ready
-      if (isElectron) {
-        await new Promise(resolve => setTimeout(resolve, 200));
-      }
-      
-      const db = getDB();
-      console.log('Journal: Got database instance, calling getAllSightings...');
-      
-      const result = await db.getAllSightings();
-      console.log('Journal: Database result:', result);
-      
-      if (result && result.success) {
-        const loadedSightings = result.data || [];
-        
-        // If no sightings exist and we're in browser mode, add test data
-        if (loadedSightings.length === 0 && !isElectron) {
-          console.log('Journal: No sightings found, adding test data...');
-          const testSightings = ensureTestData();
-          setSightings(testSightings);
-          console.log(`Journal: Added ${testSightings.length} test sightings`);
-        } else {
-          setSightings(loadedSightings);
-          console.log(`Journal: Loaded ${loadedSightings.length} sightings`);
-        }
-      } else {
-        const errorMsg = result?.error || 'Unknown database error';
-        console.error('Journal: Database error:', errorMsg);
-        setError(`Failed to load sightings: ${errorMsg}`);
-      }
-    } catch (err) {
-      console.error('Journal: Exception loading sightings:', err);
-      setError(`Error loading sightings: ${err.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Load sightings when component mounts or when database environment changes
-  useEffect(() => {
-    // Add a small delay to ensure everything is initialized
-    const timeoutId = setTimeout(() => {
-      loadSightings();
-    }, isElectron ? 500 : 100);
-    
-    return () => clearTimeout(timeoutId);
-  }, [isElectron]);
 
   // Group sightings by day and sort by datetime descending
-  const groupedSightings = useMemo(() => {
+  const groupedSightings = React.useMemo(() => {
     // First sort all sightings by datetime descending
     const sortedSightings = [...sightings].sort((a, b) => {
       const dateA = a.datetime ? new Date(a.datetime) : new Date(0);
@@ -178,17 +77,6 @@ const Journal = () => {
     return sortedGroups;
   }, [sightings]);
 
-  // Toggle day expansion
-  const toggleDay = (dayKey) => {
-    const newExpanded = new Set(expandedDays);
-    if (newExpanded.has(dayKey)) {
-      newExpanded.delete(dayKey);
-    } else {
-      newExpanded.add(dayKey);
-    }
-    setExpandedDays(newExpanded);
-  };
-
   // Expand all days
   const expandAll = () => {
     const allDays = new Set(groupedSightings.map(([dayKey]) => dayKey));
@@ -199,6 +87,39 @@ const Journal = () => {
   const collapseAll = () => {
     setExpandedDays(new Set());
   };
+
+  // Add search input to header
+  const headerActions = (
+    <div className="flex gap-4 items-center">
+      <div className="search-container">
+        <span className="search-icon">🔍</span>
+        <input
+          type="text"
+          placeholder={t('sidebar.searchPlaceholder')}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+        {searchTerm && (
+          <button 
+            className="search-clear"
+            onClick={resetFilters}
+            title={t('sidebar.clearSearch')}
+          >
+            ×
+          </button>
+        )}
+      </div>
+      <button onClick={expandAll} className="btn btn-sm">
+        📖 {t('journal.expandAll')}
+      </button>
+      <button onClick={collapseAll} className="btn btn-sm">
+        📕 {t('journal.collapseAll')}
+      </button>
+    </div>
+  );
+
+
 
   // Format day header
   const formatDayHeader = (dayKey) => {
@@ -250,20 +171,7 @@ const Journal = () => {
     );
   };
 
-  // Header actions
-  const headerActions = (
-    <div className="flex gap-4 items-center">
-      <button onClick={expandAll} className="btn btn-sm">
-        📖 {t('journal.expandAll')}
-      </button>
-      <button onClick={collapseAll} className="btn btn-sm">
-        📕 {t('journal.collapseAll')}
-      </button>
-      <button onClick={loadSightings} className="btn btn-sm">
-        🔄 {t('journal.refresh')}
-      </button>
-    </div>
-  );
+
 
   if (isLoading) {
     return (
@@ -283,8 +191,8 @@ const Journal = () => {
           <div className="error-icon">⚠️</div>
           <h3>{t('journal.errorLoading')}</h3>
           <p>{error}</p>
-          <button onClick={loadSightings} className="btn btn-primary">
-            {t('common.tryAgain')}
+          <button onClick={resetFilters} className="btn btn-primary">
+            {t('gallery.clearFilters')}
           </button>
         </div>
       </MainContent>
@@ -361,7 +269,11 @@ const Journal = () => {
                         {/* Time and Species */}
                         <div className="journal-primary">
                           <span className="journal-time">{formatTime(sighting.datetime)}</span>
-                          <span className="journal-species">
+                          <span 
+                            className="journal-species clickable-species"
+                            onClick={() => navigateToSpecies(sighting.species)}
+                            title={t('gallery.clickToViewSpecies')}
+                          >
                             {sighting.species || t('journal.unknownSpecies')}
                           </span>
                         </div>

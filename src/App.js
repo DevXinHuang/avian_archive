@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { SearchProvider } from './context/SearchContext';
 import Sidebar from './components/Layout/Sidebar';
 import PhotoImport from './components/PhotoImport';
 import ModernGallery from './components/ModernGallery';
@@ -16,22 +17,24 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <Router>
-          <div className="app">
-            <Sidebar />
-            <Routes>
-              {/* Redirect root to gallery as default */}
-              <Route path="/" element={<Navigate to="/gallery" replace />} />
-              <Route path="/gallery/species/:species" element={<SpeciesDetailView />} />
-              <Route path="/gallery" element={<ModernGallery />} />
-              <Route path="/journal" element={<Journal />} />
-              <Route path="/map" element={<Map />} />
-              <Route path="/import" element={<PhotoImport />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/test-db" element={<DatabaseTest />} />
-            </Routes>
-          </div>
-        </Router>
+        <SearchProvider>
+          <Router>
+            <div className="app">
+              <Sidebar />
+              <Routes>
+                {/* Redirect root to gallery as default */}
+                <Route path="/" element={<Navigate to="/gallery" replace />} />
+                <Route path="/gallery/species/:species" element={<SpeciesDetailView />} />
+                <Route path="/gallery" element={<ModernGallery />} />
+                <Route path="/journal" element={<Journal />} />
+                <Route path="/map" element={<Map />} />
+                <Route path="/import" element={<PhotoImport />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/test-db" element={<DatabaseTest />} />
+              </Routes>
+            </div>
+          </Router>
+        </SearchProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

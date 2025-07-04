@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainContent from './Layout/MainContent';
 import { useLanguage } from '../context/LanguageContext';
-import { ensureTestData } from '../utils/testData';
+import { useSearch } from '../context/SearchContext';
 import './ModernGallery.css';
 
 /**
@@ -13,147 +13,24 @@ import './ModernGallery.css';
 const ModernGallery = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  /** @type {[PhotoSighting[], React.Dispatch<React.SetStateAction<PhotoSighting[]>>]} */
-  const [sightings, setSightings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isElectron, setIsElectron] = useState(false);
-  const [error, setError] = useState(null);
+  const { 
+    searchTerm, 
+    setSearchTerm,
+    searchResults,
+    isLoading,
+    error,
+    activeFilters,
+    updateFilter,
+    clearSearch,
+    uniqueSpecies
+  } = useSearch();
 
-  // Filter and sort states
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedSpecies, setSelectedSpecies] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  // Local sort state
   const [sortBy, setSortBy] = useState('newest');
 
-  // Check if we're in Electron or browser
-  useEffect(() => {
-    const checkElectron = () => {
-      const hasElectronAPI = !!window.electronAPI;
-      setIsElectron(hasElectronAPI);
-      return hasElectronAPI;
-    };
-    
-    const initialCheck = checkElectron();
-    if (!initialCheck) {
-      let attempts = 0;
-      const maxAttempts = 6;
-      const interval = setInterval(() => {
-        attempts++;
-        const found = checkElectron();
-        
-        if (found || attempts >= maxAttempts) {
-          clearInterval(interval);
-        }
-      }, 500);
-      
-      return () => clearInterval(interval);
-    }
-  }, []);
-
-  // Mock database for browser testing
-  const mockDatabase = {
-    getAllSightings: () => {
-      /** @type {PhotoSighting[]} */
-      const mockSightings = JSON.parse(localStorage.getItem('mockSightings') || '[]');
-      return Promise.resolve({ success: true, data: mockSightings.reverse() });
-    }
-  };
-
-  const getDB = () => {
-    if (isElectron && window.electronAPI && window.electronAPI.database) {
-      return window.electronAPI.database;
-    }
-    return mockDatabase;
-  };
-
-  // Load all sightings from database
-  const loadSightings = async () => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      if (isElectron) {
-        await new Promise(resolve => setTimeout(resolve, 200));
-      }
-      
-      const db = getDB();
-      const result = await db.getAllSightings();
-      
-      if (result && result.success) {
-        const loadedSightings = result.data || [];
-        
-        // If no sightings exist and we're in browser mode, add test data
-        if (loadedSightings.length === 0 && !isElectron) {
-          const testSightings = ensureTestData();
-          setSightings(testSightings);
-        } else {
-          setSightings(loadedSightings);
-        }
-      } else {
-        const errorMsg = result?.error || 'Unknown database error';
-        setError(`Failed to load sightings: ${errorMsg}`);
-      }
-    } catch (err) {
-      setError(`Error loading sightings: ${err.message}`);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      loadSightings();
-    }, isElectron ? 500 : 100);
-    
-    return () => clearTimeout(timeoutId);
-  }, [isElectron]);
-
-  // Get unique species for filter dropdown
-  const uniqueSpecies = useMemo(() => {
-    const species = sightings
-      .map(s => s.species)
-      .filter(s => s && s.trim())
-      .filter((species, index, arr) => arr.indexOf(species) === index)
-      .sort();
-    return species;
-  }, [sightings]);
-
-  // Filter and sort sightings
-  const filteredAndSortedSightings = useMemo(() => {
-    let filtered = sightings.filter(sighting => {
-      // Search filter
-      const matchesSearch = !searchTerm || 
-        (sighting.species && sighting.species.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (sighting.notes && sighting.notes.toLowerCase().includes(searchTerm.toLowerCase()));
-
-      // Species filter
-      const matchesSpecies = !selectedSpecies || sighting.species === selectedSpecies;
-
-      // Date range filter
-      let matchesDateRange = true;
-      if (startDate || endDate) {
-        const sightingDate = sighting.datetime ? new Date(sighting.datetime) : null;
-        if (sightingDate) {
-          if (startDate) {
-            const start = new Date(startDate);
-            matchesDateRange = matchesDateRange && sightingDate >= start;
-          }
-          if (endDate) {
-            const end = new Date(endDate);
-            end.setHours(23, 59, 59, 999);
-            matchesDateRange = matchesDateRange && sightingDate <= end;
-          }
-        } else if (startDate || endDate) {
-          matchesDateRange = false;
-        }
-      }
-
-      return matchesSearch && matchesSpecies && matchesDateRange;
-    });
-
-    // Sort results
-    filtered.sort((a, b) => {
+  // Sort search results
+  const sortedSightings = React.useMemo(() => {
+    return [...searchResults].sort((a, b) => {
       const dateA = a.datetime ? new Date(a.datetime) : new Date(0);
       const dateB = b.datetime ? new Date(b.datetime) : new Date(0);
 
@@ -168,16 +45,11 @@ const ModernGallery = () => {
           return dateB - dateA;
       }
     });
+  }, [searchResults, sortBy]);
 
-    return filtered;
-  }, [sightings, searchTerm, selectedSpecies, startDate, endDate, sortBy]);
-
-  // Clear all filters
-  const clearFilters = () => {
-    setSearchTerm('');
-    setSelectedSpecies('');
-    setStartDate('');
-    setEndDate('');
+  // Reset filters and sort
+  const resetFilters = () => {
+    clearSearch();
     setSortBy('newest');
   };
 
@@ -212,10 +84,7 @@ const ModernGallery = () => {
   // Header actions
   const headerActions = (
     <div className="flex gap-4 items-center">
-      <button onClick={loadSightings} className="btn btn-sm">
-        🔄 {t('gallery.refresh')}
-      </button>
-      <button onClick={clearFilters} className="btn btn-sm">
+      <button onClick={resetFilters} className="btn btn-sm">
         {t('gallery.clearFilters')}
       </button>
     </div>
@@ -239,8 +108,8 @@ const ModernGallery = () => {
           <div className="error-icon">⚠️</div>
           <h3>{t('gallery.errorLoading')}</h3>
           <p>{error}</p>
-          <button onClick={loadSightings} className="btn btn-primary">
-            {t('common.tryAgain')}
+          <button onClick={resetFilters} className="btn btn-primary">
+            {t('gallery.clearFilters')}
           </button>
         </div>
       </MainContent>
@@ -250,7 +119,7 @@ const ModernGallery = () => {
   return (
     <MainContent 
       title={t('gallery.title')} 
-      subtitle={`${filteredAndSortedSightings.length} ${t('common.of')} ${sightings.length} ${t('gallery.photosCount')}`}
+      subtitle={`${sortedSightings.length} ${t('common.of')} ${searchResults.length} ${t('gallery.photosCount')}`}
       actions={headerActions}
     >
       {/* Filters */}
@@ -272,8 +141,8 @@ const ModernGallery = () => {
           <div className="filter-group">
             <label className="filter-label">{t('common.species')}</label>
             <select
-              value={selectedSpecies}
-              onChange={(e) => setSelectedSpecies(e.target.value)}
+              value={activeFilters.species}
+              onChange={(e) => updateFilter('species', e.target.value)}
               className="filter-select"
             >
               <option value="">{t('gallery.allSpecies')}</option>
@@ -288,8 +157,8 @@ const ModernGallery = () => {
             <label className="filter-label">{t('gallery.startDate')}</label>
             <input
               type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              value={activeFilters.dateFrom}
+              onChange={(e) => updateFilter('dateFrom', e.target.value)}
               className="filter-input"
             />
           </div>
@@ -298,8 +167,8 @@ const ModernGallery = () => {
             <label className="filter-label">{t('gallery.endDate')}</label>
             <input
               type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              value={activeFilters.dateTo}
+              onChange={(e) => updateFilter('dateTo', e.target.value)}
               className="filter-input"
             />
           </div>
@@ -317,24 +186,41 @@ const ModernGallery = () => {
               <option value="species">{t('gallery.speciesName')}</option>
             </select>
           </div>
+
+          {/* Location Filter */}
+          <div className="filter-group">
+            <label className="filter-label">{t('gallery.location')}</label>
+            <input
+              type="text"
+              placeholder={t('gallery.locationPlaceholder')}
+              value={activeFilters.location}
+              onChange={(e) => updateFilter('location', e.target.value)}
+              className="filter-input"
+            />
+          </div>
         </div>
       </div>
 
       {/* Photo Grid */}
-      {filteredAndSortedSightings.length === 0 ? (
+      {sortedSightings.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">📸</div>
           <h3>{t('gallery.noPhotos')}</h3>
           <p>
-            {sightings.length === 0 
+            {searchResults.length === 0 
               ? t('gallery.noPhotosDesc')
               : t('gallery.adjustFilters')
             }
           </p>
+          {searchResults.length > 0 && (
+            <button onClick={resetFilters} className="btn btn-primary">
+              {t('gallery.clearFilters')}
+            </button>
+          )}
         </div>
       ) : (
         <div className="photo-grid">
-          {filteredAndSortedSightings.map((sighting) => (
+          {sortedSightings.map((sighting) => (
             <div key={sighting.id} className="photo-card">
               {/* Photo Thumbnail */}
               <div className="photo-thumbnail">

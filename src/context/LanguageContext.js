@@ -224,7 +224,17 @@ const translations = {
     'common.error': 'Error',
     'common.success': 'Success',
     'common.tryAgain': 'Try Again',
-    'common.of': 'of'
+    'common.of': 'of',
+
+    // Gallery
+    'gallery.location': 'Location',
+    'gallery.locationPlaceholder': 'Search by location or coordinates...',
+
+    // Sidebar
+    'sidebar.searchPlaceholder': 'Search species, notes...',
+    'sidebar.guestUser': 'Guest User',
+    'sidebar.offlineMode': 'Offline Mode',
+    'sidebar.loginTooltip': 'Login (Coming Soon)'
   },
   
   zh: {
@@ -439,7 +449,17 @@ const translations = {
     'common.error': '错误',
     'common.success': '成功',
     'common.tryAgain': '重试',
-    'common.of': '的'
+    'common.of': '的',
+
+    // Gallery
+    'gallery.location': '位置',
+    'gallery.locationPlaceholder': '搜索位置或坐标...',
+
+    // Sidebar
+    'sidebar.searchPlaceholder': '搜索物种、备注...',
+    'sidebar.guestUser': '访客用户',
+    'sidebar.offlineMode': '离线模式',
+    'sidebar.loginTooltip': '登录（即将推出）'
   },
 
   es: {
@@ -585,7 +605,17 @@ const translations = {
     'common.species': 'Especies',
     'common.loading': 'Cargando...',
     'common.tryAgain': 'Intentar de Nuevo',
-    'common.of': 'de'
+    'common.of': 'de',
+
+    // Gallery
+    'gallery.location': 'Ubicación',
+    'gallery.locationPlaceholder': 'Buscar por ubicación o coordenadas...',
+
+    // Sidebar
+    'sidebar.searchPlaceholder': 'Buscar especies, notas...',
+    'sidebar.guestUser': 'Usuario Invitado',
+    'sidebar.offlineMode': 'Modo Sin Conexión',
+    'sidebar.loginTooltip': 'Iniciar Sesión (Próximamente)'
   },
 
   fr: {
@@ -740,7 +770,17 @@ const translations = {
     'common.species': 'Espèces',
     'common.loading': 'Chargement...',
     'common.tryAgain': 'Réessayer',
-    'common.of': 'de'
+    'common.of': 'de',
+
+    // Gallery
+    'gallery.location': 'Emplacement',
+    'gallery.locationPlaceholder': 'Rechercher par emplacement ou coordonnées...',
+
+    // Sidebar
+    'sidebar.searchPlaceholder': 'Rechercher espèces, notes...',
+    'sidebar.guestUser': 'Utilisateur Invité',
+    'sidebar.offlineMode': 'Mode Hors Ligne',
+    'sidebar.loginTooltip': 'Se Connecter (Bientôt Disponible)'
   },
 
   de: {

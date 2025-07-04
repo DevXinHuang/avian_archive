@@ -145,14 +145,143 @@
   line-height: 1.2;
 }
 
-/* Quick Stats */
-.sidebar-stats {
-  padding: 1.5rem;
+/* Search Function */
+.sidebar-search {
+  padding: 1rem 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.search-icon {
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 12px 8px 12px 0;
+  color: white;
+  font-size: 14px;
+  placeholder-color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0 12px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.search-clear:hover {
+  color: white;
+}
+
+/* Quick Stats - Compact */
+.sidebar-stats {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.03);
 }
 
+.sidebar-stats.compact {
+  padding: 0.75rem 1.5rem;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 8px;
+}
+
+.search-indicator {
+  background: rgba(var(--primary-color-rgb), 0.1);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--text-color);
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.search-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-item-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.stat-item-compact .stat-icon {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.stat-item-compact .stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  transition: color 0.3s ease;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.stat-item-compact .stat-label {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Legacy stat styles for backward compatibility */
 .stat-item {
   display: flex;
   align-items: center;
@@ -184,6 +313,94 @@
 .stat-label {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
+}
+
+/* User Login Area */
+.sidebar-user {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  margin-top: auto;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.user-profile:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-placeholder {
+  font-size: 18px;
+  color: white;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-status {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.login-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+
+.login-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  transform: scale(1.05);
+}
+
+.login-icon {
+  font-size: 14px;
+  display: block;
 }
 
 /* Footer */
@@ -244,14 +461,66 @@
     display: none;
   }
 
+  .sidebar-search {
+    padding: 1rem;
+  }
+
   .sidebar-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
 
+  .sidebar-stats.compact .stats-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-item-compact {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 6px;
+  }
+
+  .stat-item-compact .stat-icon {
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+
+  .stat-item-compact .stat-number {
+    margin-bottom: 0;
+  }
+
   .stat-item {
     margin-bottom: 0;
+  }
+
+  .sidebar-user {
+    padding: 1rem;
+  }
+
+  .user-profile {
+    padding: 10px;
+  }
+
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .avatar-placeholder {
+    font-size: 16px;
+  }
+
+  .user-name {
+    font-size: 13px;
+  }
+
+  .user-status {
+    font-size: 10px;
   }
 }
 
