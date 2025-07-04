@@ -1,0 +1,576 @@
+/* Birding Activity Heatmap Styles */
+
+.birding-heatmap {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.heatmap-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.heatmap-title h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.heatmap-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.year-selector {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.year-selector:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Test Controls */
+.test-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.test-btn,
+.debug-btn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.test-btn:hover,
+.debug-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.test-btn.active,
+.debug-btn.active {
+  background: var(--accent-blue);
+  color: white;
+  border-color: var(--accent-blue);
+}
+
+.test-mode-indicator {
+  border: 2px dashed var(--warning);
+  border-radius: 8px;
+  background: rgba(237, 137, 54, 0.1);
+}
+
+.test-mode-indicator .stat-number {
+  color: var(--warning);
+}
+
+.test-mode-indicator .stat-label {
+  color: var(--warning);
+  font-weight: 600;
+}
+
+/* Debug Panel */
+.debug-panel {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.debug-panel h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-primary);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.debug-panel p {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.debug-panel strong {
+  color: var(--text-primary);
+}
+
+/* Empty State */
+.heatmap-empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  border: 2px dashed var(--border-medium);
+  margin: 1rem 0;
+}
+
+.heatmap-empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.heatmap-empty-state h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+}
+
+.heatmap-empty-state p {
+  margin: 0 0 1.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Stats Section */
+.heatmap-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 80px;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* Heatmap Container */
+.heatmap-container {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.heatmap-months {
+  display: flex;
+  margin-bottom: 0.5rem;
+  margin-left: 4rem;
+}
+
+.month-label {
+  flex: 1;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-align: center;
+  min-width: 52px;
+  transition: color 0.3s ease;
+}
+
+.heatmap-content {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.heatmap-weekdays {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-right: 0.5rem;
+  width: 3rem;
+}
+
+.weekday-label {
+  height: 12px;
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  transition: color 0.3s ease;
+}
+
+.weekday-label.hidden {
+  color: transparent;
+}
+
+/* Heatmap Grid */
+.heatmap-grid {
+  display: flex;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+
+.heatmap-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.heatmap-day {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Day intensity colors */
+.heatmap-day.empty {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+}
+
+.heatmap-day.low {
+  background: #c6f6d5;
+  border: 1px solid #9ae6b4;
+}
+
+.heatmap-day.medium {
+  background: #68d391;
+  border: 1px solid #48bb78;
+}
+
+.heatmap-day.high {
+  background: #38a169;
+  border: 1px solid #2f855a;
+}
+
+.heatmap-day.highest {
+  background: #2f855a;
+  border: 1px solid #276749;
+}
+
+/* Dark mode colors */
+[data-theme="dark"] .heatmap-day.low {
+  background: #22543d;
+  border: 1px solid #2f855a;
+}
+
+[data-theme="dark"] .heatmap-day.medium {
+  background: #2f855a;
+  border: 1px solid #38a169;
+}
+
+[data-theme="dark"] .heatmap-day.high {
+  background: #38a169;
+  border: 1px solid #48bb78;
+}
+
+[data-theme="dark"] .heatmap-day.highest {
+  background: #48bb78;
+  border: 1px solid #68d391;
+}
+
+/* Today indicator */
+.heatmap-day.today {
+  box-shadow: 0 0 0 2px var(--accent-blue);
+  z-index: 1;
+}
+
+/* Hover effects */
+.heatmap-day:hover {
+  transform: scale(1.2);
+  z-index: 2;
+  box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+/* Legend */
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.legend-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  transition: color 0.3s ease;
+}
+
+.legend-squares {
+  display: flex;
+  gap: 2px;
+}
+
+.legend-square {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid var(--border-light);
+}
+
+.legend-square.empty {
+  background: var(--bg-tertiary);
+}
+
+.legend-square.low {
+  background: #c6f6d5;
+  border-color: #9ae6b4;
+}
+
+.legend-square.medium {
+  background: #68d391;
+  border-color: #48bb78;
+}
+
+.legend-square.high {
+  background: #38a169;
+  border-color: #2f855a;
+}
+
+.legend-square.highest {
+  background: #2f855a;
+  border-color: #276749;
+}
+
+/* Dark mode legend colors */
+[data-theme="dark"] .legend-square.low {
+  background: #22543d;
+  border-color: #2f855a;
+}
+
+[data-theme="dark"] .legend-square.medium {
+  background: #2f855a;
+  border-color: #38a169;
+}
+
+[data-theme="dark"] .legend-square.high {
+  background: #38a169;
+  border-color: #48bb78;
+}
+
+[data-theme="dark"] .legend-square.highest {
+  background: #48bb78;
+  border-color: #68d391;
+}
+
+/* Tooltip */
+.heatmap-tooltip {
+  position: fixed;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 12px var(--shadow-medium);
+  z-index: 1000;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  margin-top: -0.5rem;
+  transition: all 0.3s ease;
+}
+
+.tooltip-date {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.tooltip-count {
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .birding-heatmap {
+    padding: 1rem;
+  }
+
+  .heatmap-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heatmap-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .test-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .heatmap-stats {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .stat-item {
+    min-width: 60px;
+  }
+
+  .stat-number {
+    font-size: 1.25rem;
+  }
+
+  .heatmap-container {
+    overflow-x: scroll;
+    padding: 0.5rem 0;
+  }
+
+  .heatmap-months {
+    margin-left: 2rem;
+  }
+
+  .weekday-label {
+    width: 2rem;
+    font-size: 0.6rem;
+  }
+
+  .month-label {
+    font-size: 0.7rem;
+    min-width: 44px;
+  }
+
+  .heatmap-day {
+    width: 10px;
+    height: 10px;
+  }
+
+  .legend-square {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heatmap-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .stat-item {
+    min-width: auto;
+  }
+
+  .heatmap-day {
+    width: 8px;
+    height: 8px;
+  }
+
+  .heatmap-grid {
+    gap: 1px;
+  }
+
+  .heatmap-week {
+    gap: 1px;
+  }
+
+  .test-btn,
+  .debug-btn {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .debug-panel {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .debug-panel p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animation for initial load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.birding-heatmap {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Staggered animation for heatmap days */
+.heatmap-day {
+  animation: fadeIn 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+} 

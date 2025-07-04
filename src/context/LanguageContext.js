@@ -114,6 +114,13 @@ const translations = {
     'journal.unknownSpecies': 'Unknown Species',
     'journal.entriesCount': 'entries across',
     'journal.days': 'days',
+    'journal.activityMap': 'Birding Activity',
+    'journal.activityMapDesc': 'Your birding activity throughout the year',
+    'journal.totalSightings': 'Total Sightings',
+    'journal.activeDays': 'Active Days',
+    'journal.maxDay': 'Best Day',
+    'journal.less': 'Less',
+    'journal.more': 'More',
 
     // Map
     'map.title': 'Sighting Map',
@@ -275,6 +282,13 @@ const translations = {
     'journal.unknownSpecies': '未知物种',
     'journal.entriesCount': '条记录，跨越',
     'journal.days': '天',
+    'journal.activityMap': '观鸟活动',
+    'journal.activityMapDesc': '您全年的观鸟活动情况',
+    'journal.totalSightings': '总观察次数',
+    'journal.activeDays': '活跃天数',
+    'journal.maxDay': '最佳日期',
+    'journal.less': '少',
+    'journal.more': '多',
 
     // Map
     'map.title': '观察地图',
@@ -388,6 +402,13 @@ const translations = {
     'journal.unknownSpecies': 'Especie Desconocida',
     'journal.entriesCount': 'entradas a través de',
     'journal.days': 'días',
+    'journal.activityMap': 'Actividad de Observación',
+    'journal.activityMapDesc': 'Tu actividad de observación de aves durante el año',
+    'journal.totalSightings': 'Avistamientos Totales',
+    'journal.activeDays': 'Días Activos',
+    'journal.maxDay': 'Mejor Día',
+    'journal.less': 'Menos',
+    'journal.more': 'Más',
 
     // Map
     'map.title': 'Mapa de Observaciones',
@@ -499,6 +520,13 @@ const translations = {
     'journal.unknownSpecies': 'Espèce Inconnue',
     'journal.entriesCount': 'entrées sur',
     'journal.days': 'jours',
+    'journal.activityMap': 'Activité d\'Observation',
+    'journal.activityMapDesc': 'Votre activité d\'observation d\'oiseaux tout au long de l\'année',
+    'journal.totalSightings': 'Observations Totales',
+    'journal.activeDays': 'Jours Actifs',
+    'journal.maxDay': 'Meilleur Jour',
+    'journal.less': 'Moins',
+    'journal.more': 'Plus',
 
     // Map
     'map.title': 'Carte des Observations',
@@ -610,6 +638,13 @@ const translations = {
     'journal.unknownSpecies': 'Unbekannte Art',
     'journal.entriesCount': 'Einträge über',
     'journal.days': 'Tage',
+    'journal.activityMap': 'Beobachtungsaktivität',
+    'journal.activityMapDesc': 'Ihre Vogelbeobachtungsaktivität das ganze Jahr über',
+    'journal.totalSightings': 'Gesamt Sichtungen',
+    'journal.activeDays': 'Aktive Tage',
+    'journal.maxDay': 'Bester Tag',
+    'journal.less': 'Weniger',
+    'journal.more': 'Mehr',
 
     // Map
     'map.title': 'Beobachtungskarte',
@@ -721,6 +756,13 @@ const translations = {
     'journal.unknownSpecies': '不明な種',
     'journal.entriesCount': '件のエントリ、',
     'journal.days': '日間',
+    'journal.activityMap': 'バードウォッチング活動',
+    'journal.activityMapDesc': '年間のバードウォッチング活動',
+    'journal.totalSightings': '総観察数',
+    'journal.activeDays': 'アクティブな日数',
+    'journal.maxDay': '最高の日',
+    'journal.less': '少',
+    'journal.more': '多',
 
     // Map
     'map.title': '観察マップ',
@@ -832,6 +874,13 @@ const translations = {
     'journal.unknownSpecies': 'Неизвестный Вид',
     'journal.entriesCount': 'записей за',
     'journal.days': 'дней',
+    'journal.activityMap': 'Активность Наблюдений',
+    'journal.activityMapDesc': 'Ваша активность наблюдения за птицами в течение года',
+    'journal.totalSightings': 'Всего Наблюдений',
+    'journal.activeDays': 'Активных Дней',
+    'journal.maxDay': 'Лучший День',
+    'journal.less': 'Меньше',
+    'journal.more': 'Больше',
 
     // Map
     'map.title': 'Карта Наблюдений',

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import MainContent from './Layout/MainContent';
+import BirdingHeatmap from './BirdingHeatmap';
 import { useLanguage } from '../context/LanguageContext';
 import { ensureTestData } from '../utils/testData';
 import './Journal.css';
@@ -296,6 +297,28 @@ const Journal = () => {
       subtitle={`${sightings.length} ${t('journal.entriesCount')} ${groupedSightings.length} ${t('journal.days')}`}
       actions={headerActions}
     >
+      {/* Debug Section - Should be visible */}
+      <div style={{ background: 'yellow', padding: '20px', margin: '20px 0', border: '3px solid orange', borderRadius: '10px' }}>
+        <h2>🔧 DEBUG: Journal.js Component Active</h2>
+        <p><strong>Sightings count:</strong> {sightings.length}</p>
+        <p><strong>Grouped days:</strong> {groupedSightings.length}</p>
+        <button 
+          onClick={() => console.log('Sightings data:', sightings)}
+          style={{ padding: '10px', background: 'white', border: '1px solid black', cursor: 'pointer', marginRight: '10px' }}
+        >
+          Log Sightings
+        </button>
+        <button 
+          onClick={() => alert('Journal.js is working!')}
+          style={{ padding: '10px', background: 'lightgreen', border: '1px solid black', cursor: 'pointer' }}
+        >
+          Test Alert
+        </button>
+      </div>
+
+      {/* Birding Activity Heatmap */}
+      <BirdingHeatmap sightings={sightings} />
+
       {/* Journal Entries */}
       {groupedSightings.length === 0 ? (
         <div className="empty-state">

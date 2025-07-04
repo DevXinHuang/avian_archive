@@ -1,7 +1,31 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import MainContent from './Layout/MainContent';
+// import BirdingHeatmap from './BirdingHeatmap';
 import { ensureTestData } from '../utils/testData';
 import './ModernJournal.css';
+
+// Temporary simple heatmap for debugging
+const SimpleHeatmap = ({ sightings }) => {
+  console.log('SimpleHeatmap rendering with:', sightings.length, 'sightings');
+  return (
+    <div style={{ 
+      background: 'lightblue', 
+      padding: '20px', 
+      margin: '20px 0',
+      border: '3px solid blue',
+      borderRadius: '10px'
+    }}>
+      <h2>🗓️ Simple Heatmap Test</h2>
+      <p>Found {sightings.length} sightings</p>
+      <button 
+        onClick={() => alert(`Sightings: ${JSON.stringify(sightings.slice(0, 2), null, 2)}`)}
+        style={{ padding: '10px', background: 'white', border: '1px solid black', cursor: 'pointer' }}
+      >
+        Show Sample Data
+      </button>
+    </div>
+  );
+};
 
 /**
  * @typedef {import('../types/PhotoSighting').PhotoSighting} PhotoSighting
@@ -9,6 +33,8 @@ import './ModernJournal.css';
  */
 
 const ModernJournal = () => {
+  console.log('ModernJournal component rendering...');
+  
   /** @type {[PhotoSighting[], React.Dispatch<React.SetStateAction<PhotoSighting[]>>]} */
   const [sightings, setSightings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -254,6 +280,23 @@ const ModernJournal = () => {
       subtitle={`${sightings.length} entries across ${groupedSightings.length} days`}
       actions={headerActions}
     >
+      {/* Debug Section */}
+      <div style={{ background: 'yellow', padding: '20px', margin: '20px 0', border: '3px solid orange' }}>
+        <h2>🔧 DEBUG SECTION - Should Always Be Visible</h2>
+        <p><strong>Sightings count:</strong> {sightings.length}</p>
+        <p><strong>Loading state:</strong> {isLoading ? 'Yes' : 'No'}</p>
+        <p><strong>Error state:</strong> {error ? error : 'None'}</p>
+        <button 
+          onClick={() => console.log('Full sightings:', sightings)}
+          style={{ padding: '10px', background: 'white', border: '1px solid black', cursor: 'pointer' }}
+        >
+          Log Sightings to Console
+        </button>
+      </div>
+
+      {/* Simple Heatmap Test */}
+      <SimpleHeatmap sightings={sightings} />
+
       {groupedSightings.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">📖</div>
