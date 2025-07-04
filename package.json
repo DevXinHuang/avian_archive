@@ -40,7 +40,8 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "concurrently": "^9.2.0",
-    "electron-builder": "^26.0.12",
+    "electron": "^33.4.11",
+    "electron-builder": "^24.13.3",
     "electron-rebuild": "^3.2.9",
     "wait-on": "^8.0.3"
   },
@@ -58,15 +59,14 @@
   },
   "build": {
     "appId": "com.avianarchive.app",
-    "productName": "Avian Archive",
+    "productName": "AvianArchive",
     "directories": {
       "output": "dist",
       "buildResources": "build-resources"
     },
     "files": [
       "build/**/*",
-      "src/electron/**/*",
-      "node_modules/**/*"
+      "src/electron/**/*"
     ],
     "extraMetadata": {
       "main": "src/electron/main.js"
@@ -81,13 +81,6 @@
             "x64",
             "arm64"
           ]
-        },
-        {
-          "target": "zip",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
         }
       ],
       "darkModeSupport": true,
@@ -95,7 +88,7 @@
       "gatekeeperAssess": false
     },
     "dmg": {
-      "title": "Install Avian Archive",
+      "title": "Install AvianArchive",
       "icon": "build-resources/icon.icns",
       "contents": [
         {
@@ -136,7 +129,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Avian Archive"
+      "shortcutName": "AvianArchive"
     },
     "linux": {
       "icon": "build-resources/icon.png",
