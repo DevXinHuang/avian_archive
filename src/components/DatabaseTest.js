@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import MainContent from './Layout/MainContent';
+import { useLanguage } from '../context/LanguageContext';
 import { createPhotoSighting, validatePhotoSighting } from '../types/PhotoSighting';
 
 /**
@@ -8,6 +10,7 @@ import { createPhotoSighting, validatePhotoSighting } from '../types/PhotoSighti
  */
 
 const DatabaseTest = () => {
+  const { t } = useLanguage();
   const [testResults, setTestResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   /** @type {[PhotoSighting[], React.Dispatch<React.SetStateAction<PhotoSighting[]>>]} */
@@ -225,131 +228,116 @@ const DatabaseTest = () => {
     refreshSightings();
   }, [isElectron]);
 
+  // Header actions
+  const headerActions = (
+    <div className="flex gap-4 items-center">
+      <button 
+        onClick={runDatabaseTests} 
+        disabled={isLoading}
+        className="btn btn-primary"
+      >
+        {isLoading ? `⏳ ${t('common.loading')}` : `🧪 ${t('db.runTests')}`}
+      </button>
+      
+      <button 
+        onClick={clearDatabase} 
+        disabled={isLoading}
+        className="btn btn-sm"
+        style={{ backgroundColor: '#e53e3e', borderColor: '#e53e3e' }}
+      >
+        🗑️ {t('db.clearDB')}
+      </button>
+      
+      <button 
+        onClick={refreshSightings} 
+        disabled={isLoading}
+        className="btn btn-sm"
+      >
+        🔄 {t('db.refresh')}
+      </button>
+    </div>
+  );
+
   return (
-    <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h2>🧪 Database Test Console</h2>
-      <p>Test the database operations in both Electron (SQLite) and Browser (Mock) environments.</p>
-      
+    <MainContent 
+      title={t('db.title')}
+      subtitle={`${t('db.subtitle')} - ${isElectron ? 'SQLite (Electron)' : 'Mock (Browser)'}`}
+      actions={headerActions}
+    >
       {/* Environment Status */}
-      <div style={{ 
-        padding: '10px', 
-        marginBottom: '20px', 
-        backgroundColor: isElectron ? '#d4edda' : '#fff3cd',
-        border: `1px solid ${isElectron ? '#c3e6cb' : '#ffeaa7'}`,
-        borderRadius: '5px'
-      }}>
-        <strong>Environment:</strong> {isElectron ? '🖥️ Electron (Real SQLite Database)' : '🌐 Browser (Mock Database)'}
-        <br />
-        {!isElectron && (
-          <small style={{ color: '#856404' }}>
-            💡 To test with real SQLite database, open this app in the Electron desktop window
-          </small>
-        )}
-      </div>
-      
-      <div style={{ marginBottom: '20px' }}>
-        <button 
-          onClick={runDatabaseTests} 
-          disabled={isLoading}
-          style={{
-            padding: '10px 20px',
-            marginRight: '10px',
-            backgroundColor: '#667eea',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          {isLoading ? 'Running Tests...' : 'Run Database Tests'}
-        </button>
-        
-        <button 
-          onClick={clearDatabase} 
-          disabled={isLoading}
-          style={{
-            padding: '10px 20px',
-            marginRight: '10px',
-            backgroundColor: '#e53e3e',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          Clear Database
-        </button>
-        
-        <button 
-          onClick={refreshSightings} 
-          disabled={isLoading}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#48bb78',
-            color: 'white',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          Refresh
-        </button>
+      <div className="card" style={{ marginBottom: '2rem' }}>
+        <div className="card-body">
+          <div style={{ 
+            padding: '1rem', 
+            backgroundColor: isElectron ? '#d4edda' : '#fff3cd',
+            border: `1px solid ${isElectron ? '#c3e6cb' : '#ffeaa7'}`,
+            borderRadius: '8px'
+          }}>
+            <strong>{t('db.environment')}:</strong> {isElectron ? '🖥️ Electron (Real SQLite Database)' : '🌐 Browser (Mock Database)'}
+            <br />
+            {!isElectron && (
+              <small style={{ color: '#856404' }}>
+                💡 To test with real SQLite database, open this app in the Electron desktop window
+              </small>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Test Results */}
       {testResults.length > 0 && (
-        <div style={{ marginBottom: '20px' }}>
-          <h3>Test Results:</h3>
-          <div style={{ 
-            backgroundColor: '#f7fafc', 
-            padding: '15px', 
-            borderRadius: '5px',
-            fontFamily: 'monospace',
-            fontSize: '14px'
-          }}>
-            {testResults.map((result, index) => (
-              <div key={index} style={{ marginBottom: '5px' }}>
-                <span style={{ color: '#666' }}>[{result.timestamp}]</span> {result.message}
-              </div>
-            ))}
+        <div className="card" style={{ marginBottom: '2rem' }}>
+          <div className="card-header">
+            <h3 style={{ margin: 0 }}>{t('db.results')}:</h3>
+          </div>
+          <div className="card-body">
+            <div style={{ 
+              backgroundColor: '#f7fafc', 
+              padding: '15px', 
+              borderRadius: '8px',
+              fontFamily: 'monospace',
+              fontSize: '14px'
+            }}>
+              {testResults.map((result, index) => (
+                <div key={index} style={{ marginBottom: '5px' }}>
+                  <span style={{ color: '#666' }}>[{result.timestamp}]</span> {result.message}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
 
       {/* Current Sightings */}
-      <div>
-        <h3>Current Sightings in Database ({sightings.length}):</h3>
-        {sightings.length === 0 ? (
-          <p style={{ color: '#666', fontStyle: 'italic' }}>No sightings in database</p>
-        ) : (
-          <div style={{ 
-            backgroundColor: '#f7fafc', 
-            padding: '15px', 
-            borderRadius: '5px'
-          }}>
-            {sightings.map((sighting, index) => (
-              <div key={sighting.id} style={{ 
-                marginBottom: '10px', 
-                padding: '10px', 
-                backgroundColor: 'white', 
-                borderRadius: '3px',
-                border: '1px solid #e2e8f0'
-              }}>
-                <div><strong>ID:</strong> {sighting.id}</div>
-                <div><strong>Species:</strong> {sighting.species || 'Not specified'}</div>
-                <div><strong>Date:</strong> {sighting.datetime || 'Not specified'}</div>
-                <div><strong>Location:</strong> {sighting.latitude && sighting.longitude ? `${sighting.latitude}, ${sighting.longitude}` : 'Not specified'}</div>
-                <div><strong>File:</strong> {sighting.filePath}</div>
-                <div><strong>Notes:</strong> {sighting.notes || 'No notes'}</div>
-                <div style={{ fontSize: '12px', color: '#666' }}>
-                  <strong>Created:</strong> {sighting.created_at}
+      <div className="card">
+        <div className="card-header">
+          <h3 style={{ margin: 0 }}>{t('db.sightings')} ({sightings.length}):</h3>
+        </div>
+        <div className="card-body">
+          {sightings.length === 0 ? (
+            <p style={{ color: '#666', fontStyle: 'italic', margin: 0 }}>No sightings in database</p>
+          ) : (
+            <div className="grid gap-4">
+              {sightings.map((sighting, index) => (
+                <div key={sighting.id} className="card">
+                  <div className="card-body">
+                    <div><strong>ID:</strong> {sighting.id}</div>
+                    <div><strong>Species:</strong> {sighting.species || 'Not specified'}</div>
+                    <div><strong>Date:</strong> {sighting.datetime || 'Not specified'}</div>
+                    <div><strong>Location:</strong> {sighting.latitude && sighting.longitude ? `${sighting.latitude}, ${sighting.longitude}` : 'Not specified'}</div>
+                    <div><strong>File:</strong> {sighting.filePath}</div>
+                    <div><strong>Notes:</strong> {sighting.notes || 'No notes'}</div>
+                    <div style={{ fontSize: '12px', color: '#666', marginTop: '0.5rem' }}>
+                      <strong>Created:</strong> {sighting.created_at}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </MainContent>
   );
 };
 

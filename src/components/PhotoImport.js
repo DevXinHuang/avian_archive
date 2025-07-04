@@ -1,11 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import SpeciesAutocomplete from './SpeciesAutocomplete';
+import MainContent from './Layout/MainContent';
+import { useLanguage } from '../context/LanguageContext';
 import birdSpeciesData from '../data/bird-species.json';
 import { createPhotoSighting, validatePhotoSighting, normalizeCoordinates } from '../types/PhotoSighting';
 import './PhotoImport.css';
 
 const PhotoImport = () => {
+  const { t } = useLanguage();
   const [importedPhotos, setImportedPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   // Store species data for each photo: { photoId: speciesData }
@@ -148,7 +151,7 @@ const PhotoImport = () => {
    */
   const processPhotos = async () => {
     if (importedPhotos.length === 0) {
-      alert('No photos to process!');
+      alert(t('import.noPhotosToProcess'));
       return;
     }
 
@@ -327,22 +330,36 @@ const PhotoImport = () => {
     multiple: true
   });
 
-  return (
-    <div className="photo-import">
-      <div className="import-header">
-        <h2>Import Bird Photos</h2>
-        <p>Add photos to start building your birding journal</p>
-      </div>
-
-      {/* Database Environment Info */}
+  // Header actions
+  const headerActions = (
+    <div className="flex gap-4 items-center">
       {importedPhotos.length > 0 && (
-        <div className="database-info">
-          <small>
-            📊 Database: {isElectron ? 'SQLite (Electron)' : 'Mock (Browser)'}
-          </small>
-        </div>
+        <>
+          <button 
+            className="btn btn-sm"
+            onClick={clearAllPhotos}
+            disabled={isProcessing}
+          >
+            🗑️ {t('import.clearAll')}
+          </button>
+          <button 
+            className="btn btn-primary"
+            onClick={processPhotos}
+            disabled={isProcessing}
+          >
+            {isProcessing ? `⏳ ${t('import.processing')}` : `📤 ${t('import.processPhotos')} (${importedPhotos.length})`}
+          </button>
+        </>
       )}
+    </div>
+  );
 
+  return (
+    <MainContent 
+      title={t('import.title')} 
+      subtitle={t('import.subtitle')}
+      actions={headerActions}
+    >
       {/* Dropzone */}
       <div 
         {...getRootProps()} 
@@ -352,11 +369,11 @@ const PhotoImport = () => {
         <div className="dropzone-content">
           <div className="dropzone-icon">📸</div>
           {isDragActive ? (
-            <p>Drop the photos here...</p>
+            <p>{t('import.dropPhotos')}</p>
           ) : (
             <>
-              <p>Drag and drop bird photos here</p>
-              <p className="dropzone-subtext">or</p>
+              <p>{t('import.dragDrop')}</p>
+              <p className="dropzone-subtext">{t('import.or')}</p>
               <button 
                 type="button" 
                 className="file-picker-btn"
@@ -366,7 +383,7 @@ const PhotoImport = () => {
                 }}
                 disabled={isLoading}
               >
-                {isLoading ? 'Loading...' : 'Choose Files'}
+                {isLoading ? t('common.loading') : t('import.chooseFiles')}
               </button>
             </>
           )}
@@ -376,15 +393,15 @@ const PhotoImport = () => {
       {/* Processing Results */}
       {processResults && (
         <div className={`process-results ${processResults.failed === 0 ? 'success' : 'partial'}`}>
-          <h3>Processing Results</h3>
+          <h3>{t('import.processingResults')}</h3>
           <div className="results-summary">
-            <span className="success">✅ Successful: {processResults.successful}</span>
-            <span className="failed">❌ Failed: {processResults.failed}</span>
-            <span className="total">📊 Total: {processResults.total}</span>
+            <span className="success">✅ {t('import.successful')}: {processResults.successful}</span>
+            <span className="failed">❌ {t('import.failed')}: {processResults.failed}</span>
+            <span className="total">📊 {t('import.total')}: {processResults.total}</span>
           </div>
           {processResults.errors.length > 0 && (
             <div className="error-details">
-              <h4>Errors:</h4>
+              <h4>{t('import.errors')}:</h4>
               <ul>
                 {processResults.errors.map((error, index) => (
                   <li key={index}>{error}</li>
@@ -399,13 +416,13 @@ const PhotoImport = () => {
       {importedPhotos.length > 0 && (
         <div className="imported-photos">
           <div className="imported-photos-header">
-            <h3>Imported Photos ({importedPhotos.length})</h3>
+            <h3>{t('import.importedPhotos')} ({importedPhotos.length})</h3>
             <button 
               className="clear-all-btn"
               onClick={clearAllPhotos}
               disabled={isProcessing}
             >
-              Clear All
+              {t('import.clearAll')}
             </button>
           </div>
 
@@ -444,7 +461,7 @@ const PhotoImport = () => {
                     {/* AI Bird Identification */}
                     <div className="ai-suggestion-section">
                       <div className="ai-suggestion-header">
-                        <span className="ai-label">🤖 AI Bird ID</span>
+                        <span className="ai-label">🤖 {t('import.aibird')}</span>
                         <button
                           className="suggest-species-btn"
                           onClick={() => generateAISuggestion(photo.id)}
@@ -453,10 +470,10 @@ const PhotoImport = () => {
                           {aiSuggestions[photo.id]?.isGenerating ? (
                             <>
                               <span className="loading-spinner">⏳</span>
-                              Analyzing...
+                              {t('import.analyzing')}
                             </>
                           ) : (
-                            'Suggest Species'
+                            t('import.suggestSpecies')
                           )}
                         </button>
                       </div>
@@ -472,7 +489,7 @@ const PhotoImport = () => {
                             </span>
                           </div>
                           <div className="suggestion-confidence">
-                            <span className="confidence-label">Confidence:</span>
+                            <span className="confidence-label">{t('import.confidence')}:</span>
                             <span className={`confidence-score ${
                               aiSuggestions[photo.id].confidence >= 80 ? 'high' :
                               aiSuggestions[photo.id].confidence >= 60 ? 'medium' : 'low'
@@ -485,7 +502,7 @@ const PhotoImport = () => {
                             onClick={() => useAISuggestion(photo.id)}
                             disabled={isProcessing}
                           >
-                            Use Suggestion
+                            {t('import.useSuggestion')}
                           </button>
                         </div>
                       )}
@@ -493,11 +510,11 @@ const PhotoImport = () => {
                     
                     {/* Species Selection */}
                     <div className="species-section">
-                      <label className="species-label">Bird Species:</label>
+                      <label className="species-label">{t('import.birdSpecies')}:</label>
                       <SpeciesAutocomplete
                         value={photoSpecies[photo.id]?.common_name || ''}
                         onChange={(speciesData) => handleSpeciesChange(photo.id, speciesData)}
-                        placeholder="Search for bird species..."
+                        placeholder={t('import.searchSpecies')}
                       />
                       {photoSpecies[photo.id] && (
                         <div className="selected-species-info">
@@ -510,11 +527,11 @@ const PhotoImport = () => {
 
                     {/* Metadata Section */}
                     <div className="metadata-section">
-                      <h4 className="metadata-title">Photo Details</h4>
+                      <h4 className="metadata-title">{t('import.photoDetails')}</h4>
                       
                       {/* Date/Time */}
                       <div className="metadata-field">
-                        <label className="metadata-label">Date & Time:</label>
+                        <label className="metadata-label">{t('import.datetime')}:</label>
                         <input
                           type="datetime-local"
                           value={metadata.date}
@@ -526,12 +543,12 @@ const PhotoImport = () => {
 
                       {/* Location */}
                       <div className="metadata-field">
-                        <label className="metadata-label">Location:</label>
+                        <label className="metadata-label">{t('import.location')}:</label>
                         <div className="location-inputs">
                           <input
                             type="number"
                             step="any"
-                            placeholder="Latitude"
+                            placeholder={t('import.latitude')}
                             value={metadata.latitude}
                             onChange={(e) => handleMetadataChange(photo.id, 'latitude', e.target.value)}
                             className="metadata-input location-input"
@@ -542,7 +559,7 @@ const PhotoImport = () => {
                           <input
                             type="number"
                             step="any"
-                            placeholder="Longitude"
+                            placeholder={t('import.longitude')}
                             value={metadata.longitude}
                             onChange={(e) => handleMetadataChange(photo.id, 'longitude', e.target.value)}
                             className="metadata-input location-input"
@@ -555,9 +572,9 @@ const PhotoImport = () => {
 
                       {/* Notes */}
                       <div className="metadata-field">
-                        <label className="metadata-label">Notes:</label>
+                        <label className="metadata-label">{t('import.notes')}:</label>
                         <textarea
-                          placeholder="Add any notes about this sighting..."
+                          placeholder={t('import.notesPlaceholder')}
                           value={metadata.notes}
                           onChange={(e) => handleMetadataChange(photo.id, 'notes', e.target.value)}
                           className="metadata-input notes-input"
@@ -572,18 +589,9 @@ const PhotoImport = () => {
             })}
           </div>
 
-          <div className="import-actions">
-            <button 
-              className="process-photos-btn"
-              onClick={processPhotos}
-              disabled={isProcessing}
-            >
-              {isProcessing ? 'Processing Photos...' : `Process Photos (${importedPhotos.length})`}
-            </button>
-          </div>
         </div>
       )}
-    </div>
+    </MainContent>
   );
 };
 

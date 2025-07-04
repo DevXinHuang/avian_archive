@@ -1,42 +1,37 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
+import Sidebar from './components/Layout/Sidebar';
 import PhotoImport from './components/PhotoImport';
-import Gallery from './components/Gallery';
+import ModernGallery from './components/ModernGallery';
 import Journal from './components/Journal';
+import Map from './components/Map';
+import Settings from './components/Settings';
 import DatabaseTest from './components/DatabaseTest';
 import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <nav className="nav-bar">
-          <div className="nav-brand">
-            <h1>🦅 Birding App</h1>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Router>
+          <div className="app">
+            <Sidebar />
+            <Routes>
+              {/* Redirect root to gallery as default */}
+              <Route path="/" element={<Navigate to="/gallery" replace />} />
+              <Route path="/gallery" element={<ModernGallery />} />
+              <Route path="/journal" element={<Journal />} />
+              <Route path="/map" element={<Map />} />
+              <Route path="/import" element={<PhotoImport />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/test-db" element={<DatabaseTest />} />
+            </Routes>
           </div>
-          <div className="nav-links">
-            <NavLink to="/" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-              Import
-            </NavLink>
-            <NavLink to="/gallery" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-              Gallery
-            </NavLink>
-            <NavLink to="/journal" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
-              Journal
-            </NavLink>
-          </div>
-        </nav>
-
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<PhotoImport />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/journal" element={<Journal />} />
-            <Route path="/test-db" element={<DatabaseTest />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+        </Router>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 
