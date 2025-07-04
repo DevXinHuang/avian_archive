@@ -28,9 +28,23 @@ const translations = {
     'journal.timeline': 'Timeline of sightings',
     
     // Map
-    'map.title': 'Map',
-    'map.subtitle': 'Sighting locations',
-    'map.locations': 'Sighting locations',
+    'map.title': 'Sighting Map',
+    'map.subtitle': 'Explore your birding locations on an interactive map',
+    'map.comingSoon': 'Interactive Map Coming Soon',
+    'map.description': 'View all your bird sightings plotted on an interactive map with clustering, location details, and route tracking.',
+    'map.loading': 'Loading map...',
+    'map.errorLoading': 'Error loading map data',
+    'map.refresh': 'Refresh',
+    'map.locatedSightings': 'sightings with locations',
+    'map.totalSightings': 'Total Sightings',
+    'map.uniqueSpecies': 'Species',
+    'map.locations': 'Locations',
+    'map.locationDetails': 'Location Details',
+    'map.legend': 'Map Legend',
+    'map.birdSighting': 'Bird Sighting',
+    'map.clickForDetails': 'Click for details',
+    'map.noDate': 'No date',
+    'map.invalidDate': 'Invalid date',
     
     // Import
     'import.title': 'Import Photos',
@@ -121,12 +135,6 @@ const translations = {
     'journal.maxDay': 'Best Day',
     'journal.less': 'Less',
     'journal.more': 'More',
-
-    // Map
-    'map.title': 'Sighting Map',
-    'map.subtitle': 'Explore your birding locations on an interactive map',
-    'map.comingSoon': 'Interactive Map Coming Soon',
-    'map.description': 'View all your bird sightings plotted on an interactive map with clustering, location details, and route tracking.',
 
     // Import specific
     'import.dropPhotos': 'Drop the photos here...',

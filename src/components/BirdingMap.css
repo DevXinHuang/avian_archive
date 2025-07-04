@@ -1,0 +1,423 @@
+/* Birding Map Component Styles */
+.birding-map {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Map Header */
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.map-title h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.map-subtitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.map-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.test-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.test-btn, .debug-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.test-btn:hover, .debug-btn:hover {
+  background: var(--color-bg-hover);
+  border-color: var(--color-border-hover);
+}
+
+.test-btn.active, .debug-btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Map Statistics */
+.map-stats {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 80px;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.test-mode-indicator {
+  border-left: 2px solid var(--color-warning);
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
+/* Debug Panel */
+.debug-panel {
+  padding: 1rem;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.debug-panel h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-primary);
+}
+
+.debug-panel p {
+  margin: 0.25rem 0;
+  color: var(--color-text-secondary);
+}
+
+/* Map Container */
+.map-container {
+  position: relative;
+  height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* Custom Bird Markers */
+.custom-bird-marker {
+  background: transparent;
+  border: none;
+}
+
+.bird-marker-content {
+  width: 30px;
+  height: 30px;
+  background: var(--color-bg-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.bird-marker-content:hover {
+  transform: scale(1.1);
+}
+
+/* Popup Styles */
+.leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+  border: 2px solid rgba(59, 130, 246, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #1f2937 !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(59, 130, 246, 0.8) transparent transparent !important;
+}
+
+.map-popup {
+  padding: 1rem;
+  min-width: 250px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+}
+
+.popup-header h4 {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937 !important;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.popup-coords {
+  margin: 0 0 1rem 0;
+  color: #6b7280 !important;
+  font-size: 0.875rem;
+  font-family: monospace;
+  font-weight: 500;
+}
+
+.popup-sightings h5 {
+  margin: 0 0 0.75rem 0;
+  color: #2563eb !important;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.popup-sighting {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: rgba(248, 250, 252, 0.8);
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.popup-sighting:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0.5rem;
+  border-bottom: none;
+}
+
+.sighting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.sighting-species {
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+  font-size: 0.95rem;
+}
+
+.sighting-date {
+  font-size: 0.8rem;
+  color: #6b7280 !important;
+  font-weight: 500;
+}
+
+.sighting-notes {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4b5563 !important;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.popup-more {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+  color: #6b7280 !important;
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Empty State */
+.map-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--color-bg-secondary);
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.map-empty-state h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--color-text-primary);
+}
+
+.map-empty-state p {
+  margin: 0 0 1.5rem 0;
+  color: var(--color-text-secondary);
+  max-width: 300px;
+}
+
+/* Map Legend */
+.map-legend {
+  padding: 1rem;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.map-legend h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+}
+
+.legend-items {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.legend-marker {
+  font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .map-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .map-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .map-container {
+    height: 400px;
+  }
+  
+  .legend-items {
+    justify-content: center;
+  }
+  
+  .map-popup {
+    min-width: 200px;
+  }
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+  .leaflet-popup-content-wrapper {
+    background: rgba(31, 41, 55, 0.95) !important;
+    border: 2px solid rgba(59, 130, 246, 0.9) !important;
+  }
+  
+  .leaflet-popup-tip {
+    background: rgba(31, 41, 55, 0.95) !important;
+    border-color: rgba(59, 130, 246, 0.9) transparent transparent !important;
+  }
+  
+  .map-popup {
+    background: rgba(31, 41, 55, 0.95);
+  }
+  
+  .popup-header h4 {
+    color: #f9fafb !important;
+  }
+  
+  .popup-coords {
+    color: #d1d5db !important;
+  }
+  
+  .popup-sightings h5 {
+    color: #60a5fa !important;
+    border-bottom: 2px solid #4b5563;
+  }
+  
+  .popup-sighting {
+    background: rgba(55, 65, 81, 0.8);
+    border-bottom: 1px solid #4b5563;
+  }
+  
+  .sighting-species {
+    color: #f9fafb !important;
+  }
+  
+  .sighting-date {
+    color: #d1d5db !important;
+  }
+  
+  .sighting-notes {
+    color: #d1d5db !important;
+  }
+  
+  .popup-more {
+    color: #d1d5db !important;
+  }
+  
+  .bird-marker-content {
+    background: var(--color-bg-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+/* Leaflet control styling to match theme */
+.leaflet-control-zoom a {
+  background-color: var(--color-bg-primary) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: var(--color-bg-hover) !important;
+}
+
+.leaflet-control-attribution {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-text-secondary) !important;
+}
+
+.leaflet-control-attribution a {
+  color: var(--color-primary) !important;
+} 
