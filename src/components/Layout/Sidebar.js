@@ -118,7 +118,7 @@ const Sidebar = () => {
       <div className="sidebar-stats compact">
         <div className="stats-row">
           <div className="stat-item-compact">
-            <span className="stat-icon">📸</span>
+          <span className="stat-icon">📸</span>
             <span className="stat-number">
               {searchStats.isFiltering ? searchStats.filtered : searchStats.total}
             </span>

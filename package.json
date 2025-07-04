@@ -1,7 +1,10 @@
 {
-  "name": "birding-app",
+  "name": "avian-archive",
   "version": "1.0.0",
   "description": "Local-first birding app for organizing bird photos and sightings",
+  "author": {
+    "name": "Daniel Huang"
+  },
   "main": "src/electron/main.js",
   "homepage": "./",
   "scripts": {
@@ -12,29 +15,34 @@
     "electron": "electron .",
     "electron-dev": "ELECTRON_IS_DEV=true electron .",
     "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron-dev\"",
-    "build-electron": "npm run build && electron-builder"
+    "build-electron": "npm run build && electron-builder",
+    "build-mac": "npm run build && electron-builder --mac",
+    "build-win": "npm run build && electron-builder --win",
+    "build-linux": "npm run build && electron-builder --linux",
+    "build-all": "npm run build && electron-builder --mac --win --linux",
+    "release": "npm run build && electron-builder --publish=never",
+    "electron-rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
     "date-fns": "^4.1.0",
-    "electron": "^33.4.1",
     "leaflet": "^1.9.4",
     "lowdb": "^7.0.1",
     "react": "^19.1.0",
-    "react-datepicker": "^7.5.0",
+    "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
-    "react-dropzone": "^14.3.5",
+    "react-dropzone": "^14.3.8",
     "react-leaflet": "^5.0.0",
-    "react-router-dom": "^7.1.1",
+    "react-router-dom": "^7.6.3",
     "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "@types/react": "^19.0.5",
-    "@types/react-dom": "^19.0.2",
-    "concurrently": "^9.1.0",
-    "electron-builder": "^25.1.8",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "concurrently": "^9.2.0",
+    "electron-builder": "^26.0.12",
     "electron-rebuild": "^3.2.9",
-    "wait-on": "^8.0.1"
+    "wait-on": "^8.0.3"
   },
   "browserslist": {
     "production": [
@@ -49,14 +57,94 @@
     ]
   },
   "build": {
-    "appId": "com.birdingapp.app",
-    "productName": "Birding App",
+    "appId": "com.avianarchive.app",
+    "productName": "Avian Archive",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "build-resources"
     },
     "files": [
       "build/**/*",
-      "src/electron/**/*"
-    ]
+      "src/electron/**/*",
+      "node_modules/**/*"
+    ],
+    "extraMetadata": {
+      "main": "src/electron/main.js"
+    },
+    "mac": {
+      "category": "public.app-category.education",
+      "icon": "build-resources/icon.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "darkModeSupport": true,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "title": "Install Avian Archive",
+      "icon": "build-resources/icon.icns",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 400
+      }
+    },
+    "win": {
+      "icon": "build-resources/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Avian Archive"
+    },
+    "linux": {
+      "icon": "build-resources/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Education"
+    }
   }
 }

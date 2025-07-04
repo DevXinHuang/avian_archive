@@ -18,22 +18,22 @@ function App() {
     <ThemeProvider>
       <LanguageProvider>
         <SearchProvider>
-          <Router>
-            <div className="app">
-              <Sidebar />
-              <Routes>
-                {/* Redirect root to gallery as default */}
-                <Route path="/" element={<Navigate to="/gallery" replace />} />
+    <Router>
+      <div className="app">
+        <Sidebar />
+        <Routes>
+          {/* Redirect root to gallery as default */}
+          <Route path="/" element={<Navigate to="/gallery" replace />} />
                 <Route path="/gallery/species/:species" element={<SpeciesDetailView />} />
-                <Route path="/gallery" element={<ModernGallery />} />
-                <Route path="/journal" element={<Journal />} />
-                <Route path="/map" element={<Map />} />
-                <Route path="/import" element={<PhotoImport />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/test-db" element={<DatabaseTest />} />
-              </Routes>
-            </div>
-          </Router>
+          <Route path="/gallery" element={<ModernGallery />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/map" element={<Map />} />
+          <Route path="/import" element={<PhotoImport />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/test-db" element={<DatabaseTest />} />
+        </Routes>
+      </div>
+    </Router>
         </SearchProvider>
       </LanguageProvider>
     </ThemeProvider>

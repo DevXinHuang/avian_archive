@@ -178,7 +178,7 @@ const Map = () => {
   }
 
   return (
-    <MainContent 
+    <MainContent
       title={t('map.title')} 
       subtitle={subtitle}
       actions={headerActions}

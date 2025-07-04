@@ -226,7 +226,7 @@ This is an open-source birding app project. Contributions are welcome!
 
 ## License
 
-MIT License - feel free to use this code for your own birding adventures! 🐦
+MIT License - feel free to use this code for your own birding adventures! 🐦 
 
 ---
 

@@ -88,6 +88,17 @@ const Journal = () => {
     setExpandedDays(new Set());
   };
 
+  // Toggle day expansion (fix for missing function)
+  const toggleDay = (dayKey) => {
+    const newExpanded = new Set(expandedDays);
+    if (newExpanded.has(dayKey)) {
+      newExpanded.delete(dayKey);
+    } else {
+      newExpanded.add(dayKey);
+    }
+    setExpandedDays(newExpanded);
+  };
+
   // Add search input to header
   const headerActions = (
     <div className="flex gap-4 items-center">
@@ -118,8 +129,6 @@ const Journal = () => {
       </button>
     </div>
   );
-
-
 
   // Format day header
   const formatDayHeader = (dayKey) => {
@@ -170,8 +179,6 @@ const Journal = () => {
       </div>
     );
   };
-
-
 
   if (isLoading) {
     return (
